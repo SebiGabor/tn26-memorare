@@ -16,8 +16,8 @@
             --text: #f1f5f9;
             --text-dim: #94a3b8;
             --accent: #3b82f6;
+            --gold: #facc15; /* Noua culoare de accent pt Mana */
             --success: #10b981;
-            --danger: #ef4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
@@ -29,9 +29,9 @@
         h1 { margin: 0; font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 5px; }
         .subtitle { font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
 
-        /* INFO BOX (NOU) */
+        /* INFO BOX */
         .info-box {
-            background: rgba(30, 41, 59, 0.5); /* Semi-transparent */
+            background: rgba(30, 41, 59, 0.5);
             border: 1px solid rgba(255,255,255,0.1);
             border-radius: 12px;
             padding: 15px;
@@ -42,12 +42,22 @@
             min-width: 280px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-
         .info-row { display: flex; align-items: center; gap: 12px; justify-content: center; }
         .info-icon { color: var(--accent); font-size: 1.1rem; }
         .info-content { text-align: left; }
         .info-label { display: block; color: var(--text-dim); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.5px; }
         .info-text { display: block; color: #fff; font-weight: 700; font-size: 0.95rem; }
+
+        /* BUTOANE RESURSE */
+        .resources-row { display: flex; gap: 10px; justify-content: center; margin-top: 15px; }
+        .resource-btn {
+            text-decoration: none; flex: 1; max-width: 140px;
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 8px; padding: 8px; text-align: center; transition: all 0.2s;
+        }
+        .resource-btn:active { transform: scale(0.96); background: rgba(255,255,255,0.1); }
+        .res-icon { font-size: 1.2rem; display: block; margin-bottom: 2px; }
+        .res-text { color: #fff; font-size: 0.75rem; font-weight: 600; }
 
         /* SECTIUNI */
         .section-label {
@@ -58,22 +68,41 @@
         /* CARDURI GENERALE */
         .card { background: var(--card); border: 1px solid rgba(255,255,255,0.05); border-radius: 16px; padding: 20px; margin-bottom: 25px; }
 
-        /* MANA (GLOBAL) */
+        /* --- MANA CARD (REDESIGN: DARK & GOLD) --- */
         .mana-card {
-            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
-            box-shadow: 0 8px 20px -5px rgba(37, 99, 235, 0.5);
+            background: #172033; /* Un pic mai inchis decat cardurile normale */
+            border: 1px solid rgba(59, 130, 246, 0.3); /* Bordura subtila albastra */
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15); /* Glow subtil */
             text-align: center;
+            position: relative;
+            overflow: hidden;
         }
-        .big-number { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 10px 0; }
-        .target-text { font-size: 0.9rem; opacity: 0.9; }
+        /* Un mic efect de gradient doar pe fundal, foarte discret */
+        .mana-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+        }
 
-        /* BARĂ DE PROGRES STANDARD */
-        .progress-container { background: rgba(0,0,0,0.3); height: 10px; border-radius: 5px; margin-top: 10px; overflow: hidden; position: relative; }
-        .progress-fill { height: 100%; transition: width 1s ease; border-radius: 5px; }
-        .bg-blue { background: #60a5fa; }
-        .bg-green { background: #34d399; }
+        .big-number { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 10px 0; color: #fff; }
+        .target-text { font-size: 0.9rem; color: var(--text-dim); }
 
-        /* ECHIPE */
+        /* Bara de progres MANA - Specifica */
+        .mana-progress-track {
+            background: rgba(255,255,255,0.1);
+            height: 12px;
+            border-radius: 6px;
+            margin-top: 15px;
+            overflow: hidden;
+        }
+        .mana-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #facc15, #fbbf24); /* GOLD Gradient */
+            border-radius: 6px;
+            transition: width 1s ease;
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.4); /* Glow auriu */
+        }
+
+        /* TEAM CARDS */
         .teams-grid { display: grid; gap: 15px; grid-template-columns: 1fr; }
         @media(min-width: 600px) { .teams-grid { grid-template-columns: 1fr 1fr; } }
 
@@ -85,8 +114,11 @@
         .team-avatars { display: flex; margin-bottom: 5px; }
         .t-avatar { width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--card); margin-left: -10px; }
         .t-avatar:first-child { margin-left: 0; }
+        .team-msg { font-size: 0.85rem; color: var(--gold); font-weight: 600; margin-top: 5px; }
 
-        .team-msg { font-size: 0.85rem; color: #fbbf24; font-weight: 600; margin-top: 5px; }
+        .progress-container { background: rgba(0,0,0,0.3); height: 10px; border-radius: 5px; margin-top: 10px; overflow: hidden; }
+        .progress-fill { height: 100%; transition: width 1s ease; border-radius: 5px; }
+        .bg-green { background: var(--success); }
 
         /* INDIVIDUAL */
         .user-row {
@@ -96,25 +128,20 @@
         .user-left { display: flex; align-items: center; gap: 10px; }
         .u-avatar { width: 35px; height: 35px; border-radius: 50%; background: #334155; }
         .u-name { font-weight: 600; font-size: 0.95rem; }
+        .u-badges { margin-left: 5px; font-size: 1rem; vertical-align: middle; }
         .u-stats { text-align: right; }
         .u-val { font-weight: 700; font-size: 1rem; color: var(--text); }
 
-        /* MODIFICARE: BARA MAI MARE SI MAI LUNGA */
         .u-bar-track {
-            width: 120px;       /* Lungime crescuta (era 80px) */
-            height: 8px;        /* Grosime crescuta (era 4px) */
+            width: 120px;
+            height: 8px;
             background: #334155;
             border-radius: 4px;
             margin-top: 6px;
             margin-left: auto;
             overflow: hidden;
         }
-        .u-bar-fill {
-            height: 100%;
-            background: #60a5fa;
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
+        .u-bar-fill { height: 100%; background: var(--accent); border-radius: 4px; transition: width 0.5s ease; }
 
         .loading { text-align: center; padding: 40px; color: var(--text-dim); }
     </style>
@@ -142,6 +169,17 @@
                 </div>
             </div>
         </div>
+
+        <div class="resources-row">
+            <a href="https://drive.google.com/file/d/1O74B1Nl0pEadZ8O_f9DN1NyuV41d_o3W/view" target="_blank" class="resource-btn">
+                <i class="ri-book-read-line res-icon" style="color:#60a5fa"></i>
+                <span class="res-text">Citește</span>
+            </a>
+            <a href="https://www.bible.com/ro/audio-bible/191/JHN.14.VDC" target="_blank" class="resource-btn">
+                <i class="ri-headphone-line res-icon" style="color:#facc15"></i>
+                <span class="res-text">Ascultă</span>
+            </a>
+        </div>
     </header>
 
     <div class="section-label"><i class="ri-flag-fill"></i> Obiectivul Grupei</div>
@@ -165,7 +203,11 @@
     const SHEET_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRdVFnXKKZrGCNZJtG5AcId2syvz8xuIXDLE6DW100lXWpodskdZoBxpNeNIndunbMrg2xlv7uMhq-n/pub?gid=0&single=true&output=csv';
     const TARGET_PER_PERSON = 91;
 
-    // --- LOGICA ---
+    // Configurare Praguri Coroane
+    const THRESHOLD_C1 = 31;
+    const THRESHOLD_C2 = 58;
+    const THRESHOLD_C3 = 91;
+
     document.addEventListener('DOMContentLoaded', () => {
         fetchAndProcess();
     });
@@ -179,19 +221,14 @@
             processData(parsed);
         } catch(e) {
             console.error(e);
-            document.querySelector('.container').innerHTML = `<h3 style="text-align:center;color:#ef4444;margin-top:50px">Eroare încărcare date.<br><small>Verifică conexiunea</small></h3>`;
+            document.querySelector('.container').innerHTML = `<h3 style="text-align:center;color:#ef4444;margin-top:50px">Eroare încărcare date.</h3>`;
         }
     }
 
     function parseCSV(csv) {
         const lines = csv.split("\n").filter(l => l.trim());
-
-        // CITIREA METADATELOR (Rândul 2 din Excel = index 1 aici)
-        // Structura asteptata: Nume, Total, Saptamana, Pasaj (D), Data (E)
         const metaRow = lines[1].split(",");
-
         const weekNumber = parseInt(metaRow[2]) || 1;
-        // Citim coloana D (index 3) si E (index 4).
         const passage = metaRow[3] ? metaRow[3].trim() : "Toate capitolele";
         const meetingDate = metaRow[4] ? metaRow[4].trim() : "Va fi anunțat";
 
@@ -206,19 +243,28 @@
     }
 
     function processData({ users, weekNumber, passage, meetingDate }) {
-        // 1. Update Header Info
-        const isRandom = weekNumber % 2 === 1;
-        document.getElementById('week-badge').innerText = `SĂPTĂMÂNA ${weekNumber} • ${isRandom ? "ECHIPE RANDOM" : "ECHIPE SUPORT"}`;
+        const isRandom = weekNumber % 2 === 1; // Saptamana impara = Random? Sau cum preferi. Aici am lasat cum era
+        // De fapt, in versiunile anterioare: Impar = Random (Socializare), Par = Suport?
+        // Hai sa pastram consistenta: Impar = Random, Par = Suport.
+        // Daca vrei invers, schimba aici.
+        const label = (weekNumber % 2 === 1) ? "ECHIPE RANDOM" : "ECHIPE SUPORT";
 
-        // Injectam Pasajul si Data
+        document.getElementById('week-badge').innerText = `SĂPTĂMÂNA ${weekNumber} • ${label}`;
         document.getElementById('passage-badge').innerText = passage;
         document.getElementById('date-badge').innerText = meetingDate;
 
-        // 2. Render restul aplicatiei
         renderMana(users);
         renderIndividual(users);
-        const teams = generateTeams(users, isRandom, weekNumber);
+        const teams = generateTeams(users, (weekNumber % 2 === 1), weekNumber);
         renderTeams(teams);
+    }
+
+    function getBadges(total) {
+        let b = '';
+        if (total >= THRESHOLD_C1) b += '🔥'; // Schimbat in foc pt prima etapa
+        if (total >= THRESHOLD_C2) b += '👑';
+        if (total >= THRESHOLD_C3) b += '💎'; // Diamant la final
+        return b;
     }
 
     function renderMana(users) {
@@ -227,13 +273,17 @@
         const percent = Math.min((current / target) * 100, 100);
 
         const html = `
-            <div style="font-size:0.9rem; opacity:0.9">Total Versete Adunate</div>
+            <div style="font-size:0.9rem; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px">Total Versete Învățate</div>
             <div class="big-number">${current}</div>
             <div class="target-text">din <b>${target}</b> necesare la nivel de grup</div>
-            <div class="progress-container">
-                <div class="progress-fill bg-blue" style="width: ${percent}%"></div>
+
+            <div class="mana-progress-track">
+                <div class="mana-progress-fill" style="width: ${percent}%"></div>
             </div>
-            <div style="margin-top:10px; font-size:0.8rem">Am parcurs ${Math.round(percent)}% din text împreună!</div>
+
+            <div style="margin-top:12px; font-size:0.85rem; color:#fff">
+                <span style="color:#facc15">★</span> Am parcurs <b>${Math.round(percent)}%</b> din text împreună!
+            </div>
         `;
         document.getElementById('mana-container').innerHTML = html;
     }
@@ -252,7 +302,7 @@
                 avatars += `<img src="https://ui-avatars.com/api/?name=${m.nume}&background=random&color=fff&bold=true" class="t-avatar">`;
             });
 
-            let msg = `Mai aveți de strâns <b>${left}</b> versete!`;
+            let msg = `Mai aveți de învățat <b>${left}</b> versete!`;
             if(left <= 0) msg = `✨ Echipă Completă! Felicitări!`;
             else if(percent > 80) msg = `Încă puțin! Doar <b>${left}</b> versete.`;
 
@@ -270,7 +320,7 @@
                             <span class="team-score">${currentTeam}</span>
                             <span class="team-target-label">/ ${targetTeam} versete</span>
                         </div>
-                        <div class="progress-container" style="background:rgba(255,255,255,0.1)">
+                        <div class="progress-container" style="background:rgba(255,255,255,0.05)">
                             <div class="progress-fill bg-green" style="width: ${percent}%"></div>
                         </div>
                         <div class="team-msg">${msg}</div>
@@ -286,11 +336,16 @@
         let html = '';
         sorted.forEach(u => {
             const percent = Math.min((u.total / TARGET_PER_PERSON) * 100, 100);
+            const badges = getBadges(u.total);
+
             html += `
                 <div class="user-row">
                     <div class="user-left">
                         <img src="https://ui-avatars.com/api/?name=${u.nume}&background=0f172a&color=fff" class="u-avatar">
-                        <span class="u-name">${u.nume}</span>
+                        <span class="u-name">
+                            ${u.nume}
+                            <span class="u-badges">${badges}</span>
+                        </span>
                     </div>
                     <div class="u-stats">
                         <div class="u-val">${u.total} <span style="font-size:0.7rem; font-weight:400; color:#64748b">/ ${TARGET_PER_PERSON}</span></div>

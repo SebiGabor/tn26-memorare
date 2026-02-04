@@ -16,7 +16,7 @@
             --text: #f1f5f9;
             --text-dim: #94a3b8;
             --accent: #3b82f6;
-            --gold: #facc15; /* Noua culoare de accent pt Mana */
+            --gold: #facc15;
             --success: #10b981;
         }
 
@@ -70,14 +70,13 @@
 
         /* --- MANA CARD (REDESIGN: DARK & GOLD) --- */
         .mana-card {
-            background: #172033; /* Un pic mai inchis decat cardurile normale */
-            border: 1px solid rgba(59, 130, 246, 0.3); /* Bordura subtila albastra */
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15); /* Glow subtil */
+            background: #172033;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.15);
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        /* Un mic efect de gradient doar pe fundal, foarte discret */
         .mana-card::before {
             content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px;
             background: linear-gradient(90deg, var(--accent), var(--gold));
@@ -86,7 +85,7 @@
         .big-number { font-size: 3.5rem; font-weight: 800; line-height: 1; margin: 10px 0; color: #fff; }
         .target-text { font-size: 0.9rem; color: var(--text-dim); }
 
-        /* Bara de progres MANA - Specifica */
+        /* Bara de progres MANA */
         .mana-progress-track {
             background: rgba(255,255,255,0.1);
             height: 12px;
@@ -96,10 +95,10 @@
         }
         .mana-progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #facc15, #fbbf24); /* GOLD Gradient */
+            background: linear-gradient(90deg, #facc15, #fbbf24);
             border-radius: 6px;
             transition: width 1s ease;
-            box-shadow: 0 0 10px rgba(250, 204, 21, 0.4); /* Glow auriu */
+            box-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
         }
 
         /* TEAM CARDS */
@@ -108,8 +107,10 @@
 
         .team-card { display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
         .team-meta { display: flex; justify-content: space-between; align-items: flex-end; }
-        .team-score { font-size: 1.4rem; font-weight: 800; line-height: 1; }
-        .team-target-label { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* Aici e modificarea pentru scorul echipei */
+        .team-score { font-size: 1.8rem; font-weight: 800; line-height: 1; color: #fff; }
+        .team-target-label { font-size: 0.8rem; color: var(--text-dim); }
 
         .team-avatars { display: flex; margin-bottom: 5px; }
         .t-avatar { width: 45px; height: 45px; border-radius: 50%; border: 3px solid var(--card); margin-left: -10px; }
@@ -243,10 +244,7 @@
     }
 
     function processData({ users, weekNumber, passage, meetingDate }) {
-        const isRandom = weekNumber % 2 === 1; // Saptamana impara = Random? Sau cum preferi. Aici am lasat cum era
-        // De fapt, in versiunile anterioare: Impar = Random (Socializare), Par = Suport?
-        // Hai sa pastram consistenta: Impar = Random, Par = Suport.
-        // Daca vrei invers, schimba aici.
+        const isRandom = weekNumber % 2 === 1;
         const label = (weekNumber % 2 === 1) ? "ECHIPE RANDOM" : "ECHIPE SUPORT";
 
         document.getElementById('week-badge').innerText = `SĂPTĂMÂNA ${weekNumber} • ${label}`;
@@ -261,9 +259,9 @@
 
     function getBadges(total) {
         let b = '';
-        if (total >= THRESHOLD_C1) b += '🔥'; // Schimbat in foc pt prima etapa
+        if (total >= THRESHOLD_C1) b += '🔥';
         if (total >= THRESHOLD_C2) b += '👑';
-        if (total >= THRESHOLD_C3) b += '💎'; // Diamant la final
+        if (total >= THRESHOLD_C3) b += '💎';
         return b;
     }
 
@@ -317,8 +315,14 @@
 
                     <div style="margin-top:10px">
                         <div class="team-meta">
-                            <span class="team-score">${currentTeam}</span>
-                            <span class="team-target-label">/ ${targetTeam} versete</span>
+                            <span class="team-score">${Math.round(percent)}%</span>
+
+                            <div style="text-align:right">
+                                <span style="display:block; font-size:1.1rem; font-weight:bold; color:#fff; margin-bottom:-2px">
+                                    ${currentTeam}
+                                </span>
+                                <span class="team-target-label">din ${targetTeam}</span>
+                            </div>
                         </div>
                         <div class="progress-container" style="background:rgba(255,255,255,0.05)">
                             <div class="progress-fill bg-green" style="width: ${percent}%"></div>
